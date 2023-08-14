@@ -26,6 +26,18 @@ async function run() {
         // Connect the client to the server	(optional starting in v4.7)
         await client.connect();
 
+        const jobsCollection = client.db('easyJobs').collection('jobs')
+
+        app.get('/allJobs', async (req, res) => {
+            const result = await jobsCollection.find().toArray()
+            res.send(result)
+        })
+
+        app.get('/fresherJobs', async (req, res) => {
+            const query = { category: 'Fresher' }
+            const result = await jobsCollection.find(query).toArray()
+            res.send(result)
+        })
 
 
 
