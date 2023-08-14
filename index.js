@@ -28,6 +28,7 @@ async function run() {
 
         const jobsCollection = client.db('easyJobs').collection('jobs')
         const companiesCollection = client.db('easyJobs').collection('topCompanies')
+        const appliedJobsCollection = client.db('easyJobs').collection('appliedJobs')
 
         app.get('/allJobs', async (req, res) => {
             const result = await jobsCollection.find().toArray()
@@ -48,6 +49,12 @@ async function run() {
 
         app.get('/topCompanies', async (req, res) => {
             const result = await companiesCollection.find().toArray()
+            res.send(result)
+        })
+
+        app.post('/applyJob', async (req, res) => {
+            const job = req.body
+            const result = await appliedJobsCollection.insertOne(job)
             res.send(result)
         })
 
