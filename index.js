@@ -27,6 +27,7 @@ async function run() {
         await client.connect();
 
         const jobsCollection = client.db('easyJobs').collection('jobs')
+        const companiesCollection = client.db('easyJobs').collection('topCompanies')
 
         app.get('/allJobs', async (req, res) => {
             const result = await jobsCollection.find().toArray()
@@ -42,6 +43,11 @@ async function run() {
         app.get('/experiencedJobs', async (req, res) => {
             const query = { category: 'experienced' }
             const result = await jobsCollection.find(query).toArray()
+            res.send(result)
+        })
+
+        app.get('/topCompanies', async (req, res) => {
+            const result = await companiesCollection.find().toArray()
             res.send(result)
         })
 
