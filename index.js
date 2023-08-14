@@ -39,6 +39,12 @@ async function run() {
             res.send(result)
         })
 
+        app.get('/experiencedJobs', async (req, res) => {
+            const query = { category: 'experienced' }
+            const result = await jobsCollection.find(query).toArray()
+            res.send(result)
+        })
+
 
 
         // Send a ping to confirm a successful connection
