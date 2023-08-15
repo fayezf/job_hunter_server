@@ -10,7 +10,8 @@ app.use(cors())
 app.use(express.json())
 
 
-const uri = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASS}@cluster0.gkz5fmx.mongodb.net/?retryWrites=true&w=majority`;
+
+const uri = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASS}@cluster0.dt6wk0t.mongodb.net/?retryWrites=true&w=majority`;
 
 // Create a MongoClient with a MongoClientOptions object to set the Stable API version
 const client = new MongoClient(uri, {
@@ -26,9 +27,9 @@ async function run() {
         // Connect the client to the server	(optional starting in v4.7)
         await client.connect();
 
-        const jobsCollection = client.db('easyJobs').collection('jobs')
-        const companiesCollection = client.db('easyJobs').collection('topCompanies')
-        const appliedJobsCollection = client.db('easyJobs').collection('appliedJobs')
+        const jobsCollection = client.db('jobPortal').collection('jobs')
+        const companiesCollection = client.db('jobPortal').collection('topCompanies')
+        const appliedJobsCollection = client.db('jobPortal').collection('appliedJobs')
 
         app.get('/allJobs', async (req, res) => {
             const result = await jobsCollection.find().toArray()
@@ -57,8 +58,6 @@ async function run() {
             const result = await appliedJobsCollection.insertOne(job)
             res.send(result)
         })
-
-
 
         // Send a ping to confirm a successful connection
         await client.db("admin").command({ ping: 1 });
